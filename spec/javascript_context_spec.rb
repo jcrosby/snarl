@@ -6,11 +6,11 @@ describe "A JavaScript Context" do
     @context = Snarl::JavascriptContext.new
   end
 
-  it "should evaluate JavaScript expressions" do
+  it "evaluates JavaScript expressions" do
     @context.eval("1+1").should == 2
   end
 
-  it "should load files into its context for future execution" do
+  it "loads files into its context for future execution" do
     file = '.jstest'
     open(file, 'w+') { |f| f << "foo = function(i){ return i+1 };" }
     @context.load(file)
@@ -18,37 +18,36 @@ describe "A JavaScript Context" do
     File.delete(file)
   end
 
-  it "should set a value using put" do
+  it "sets a value using put" do
     @context.put("foo", "bar")
     @context.eval("foo").should == "bar"
   end
 
-  it "should obtain a value using get" do
+  it "obtains a value using get" do
     @context.eval("foo = 'bar'")
     @context.get("foo").should == "bar"
   end
 
-  it "should pass objects in and out using get and put" do
+  it "passes objects in and out using get and put" do
     @context.put("foo", {'foo' => 'bar'})
     @context.get("foo").should == {'foo' => 'bar'}
   end
 
-  it "should convert native arrays into ruby arrays" do
+  it "converts native arrays into ruby arrays" do
     @context.eval("[1,2]").should == [1,2]
   end
 
-  it "should convert native objects into ruby objects" do
+  it "converts native objects into ruby objects" do
     @context.eval("foo = function(){return {'foo':'bar'}}; foo();").should == {'foo' => 'bar'}
   end
 
-  it "should convert nested objects into ruby objects" do
+  it "converts nested objects into ruby objects" do
     @context.eval("foo = function(){return [{'foo':'bar'},{'a':'b'}]}; foo();").should == [{'foo' => 'bar'},{'a' => 'b'}]
   end
 
-  it "should convert boolean types into ruby booleans" do
+  it "converts boolean types into ruby booleans" do
     @context.eval("true").should be_true
     @context.eval("false").should be_false
   end
 
 end
-

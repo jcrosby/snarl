@@ -45,4 +45,3 @@ module Snarl
 
   end
 end
-

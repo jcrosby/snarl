@@ -13,4 +13,3 @@ Spec::Rake::SpecTask.new('spec') do |t|
     end
   end
 end
-
